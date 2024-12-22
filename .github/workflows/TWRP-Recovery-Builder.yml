@@ -88,6 +88,7 @@ jobs:
       with:
         swap-size-gb: 24
     - name: Get GCC Version
+      uses: haya14busa/action-cond@v1
       id: GCC_VERSION
       with:
         cond: ${{ github.event.inputs.MANIFEST_BRANCH == 'twrp-5.1'
