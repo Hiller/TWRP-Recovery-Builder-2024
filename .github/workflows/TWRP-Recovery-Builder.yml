@@ -87,12 +87,18 @@ jobs:
       uses: pierotofy/set-swap-space@master
       with:
         swap-size-gb: 24
+    - name: Get GCC Version
+      id: GCC_VERSION
+      with:
+        cond: ${{ github.event.inputs.MANIFEST_BRANCH == 'twrp-5.1'
+        if_true:  gcc-7-multilib g++-7-multilib
+        if_false: gcc-multilib g++-multilib gcc-10-multilib g++-10-multilib
         
     - name: Prepare the environment
       run: |
         sudo apt update
         sudo apt -y upgrade
-        sudo apt -y install tar zip wget gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libtinfo5 libgflags-dev
+        sudo apt -y install tar zip wget gperf ${{ steps.GCC_VERSION.outputs.value }} libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libtinfo5 libgflags-dev
         sudo add-apt-repository universe
         sudo apt -y install libncurses5
 
