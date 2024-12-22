@@ -91,7 +91,7 @@ jobs:
       uses: haya14busa/action-cond@v1
       id: GCC_VERSION
       with:
-        cond: ${{ github.event.inputs.MANIFEST_BRANCH == 'twrp-5.1'
+        cond: ${{ github.event.inputs.MANIFEST_BRANCH == 'twrp-5.1' }}
         if_true:  gcc-7-multilib g++-7-multilib
         if_false: gcc-multilib g++-multilib gcc-10-multilib g++-10-multilib
         
